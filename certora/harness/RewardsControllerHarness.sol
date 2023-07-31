@@ -10,4 +10,8 @@ contract RewardsControllerHarness is RewardsController {
     function getAssetRewardIndex(address asset, address reward) external view returns (uint256) {
         return _assets[asset].rewards[reward].index;
     }
+
+     function getlastUpdateTimestamp(address asset, address reward) external view returns (uint256) {
+        return _assets[asset].rewards[reward].lastUpdateTimestamp;
+    } 
 }
