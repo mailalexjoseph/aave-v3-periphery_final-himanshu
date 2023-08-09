@@ -156,7 +156,7 @@ rule claimAllRewardsOnBehalf(){
   assert to_rewardB_Token_balance_ == _to_rewardB_Token_balance + _rewardB_Balance;
 }
 // passed:- unit test of claimAllRewardsToSelf()
-//https://prover.certora.com/output/93750/6c44c7372c0748f787d81b908e1ae95c/?anonymousKey=f9c0f3d1456a0a966cd58460f59de62af75b3fe1
+//https://prover.certora.com/output/93750/994dbaa0cfcf43cb88fbe3ef53976d1e?anonymousKey=25884b7e898861012988ff1777e528d89579e2f5
 rule claimAllRewardsToSelf(){
   env e;address to=e.msg.sender;
   require(to!=TransferStrategyHarness);
