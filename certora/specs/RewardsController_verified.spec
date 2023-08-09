@@ -288,64 +288,36 @@ rule prop16_availaleRewards_of_asset_must_be_unique{
   assert getAvailableRewardsCount(e,AToken)>=2 =>  getAssetRewardByIndex(e,AToken,1)!=reward;
 }
 
-
-
-// rule prop17(method f,env e,calldataarg args)filtered{f->!f.isView && excludeOnlyEmission(f) && excludeHandleAction(f) && excludeConfigureAsset(f)}{
+//passed:- if after any operation acccured balance of a user has changed than his pending reward must be 0.
+// https://prover.certora.com/output/93750/db688ae796a04185993d7abb938e4775/?anonymousKey=1e591e44a24b1778f70d1e3fa8a674b8e99fa635
+rule prop17_break(method f,env e,calldataarg args)filtered{f->!f.isView && excludeOnlyEmission(f) && excludeHandleAction(f) && excludeConfigureAsset(f)}{
   
-//   // address[] assets;address user;
-//   // require(assets.length==1 &&assets[0]==AToken); 
-//   address user;
+  address[] assets=getAssetList(e);address user;
+  address[] rewardsList=getRewardsList(e);
+  require(assets.length==1 && assets[0]==AToken && rewardsList.length==1 && rewardsList[0]==reward); 
 
-//   require(getAvailableRewardsCount(e,AToken)>=1 && getAssetRewardByIndex(e,AToken,0)==reward && getAssetDecimals(e,AToken)==6);
-//   mathint before_acc=getUserAccured(e,AToken,reward,user);
-//   mathint before_pending=getPendingRewards(e,user,reward,AToken,AToken.balanceOf(e,user),AToken.scaledTotalSupply(e));
+  require(getAvailableRewardsCount(e,AToken)>=1 && getAssetRewardByIndex(e,AToken,0)==reward && getAssetDecimals(e,AToken)==6);
 
-//   mathint _userIndex=getUserAssetIndex(e,user,AToken,reward);
-//   mathint _currentAssetIndex;mathint _futureAssetIndex;
-//   _currentAssetIndex,_futureAssetIndex= getAssetIndex(e,AToken,reward);
+  mathint before_acc=getUserAccured(e,AToken,reward,user);
+  mathint before_pending=getPendingRewards(e,user,reward,AToken,AToken.balanceOf(e,user),AToken.scaledTotalSupply(e));
+
+  // mathint _userIndex=getUserAssetIndex(e,user,AToken,reward);
+  // mathint _currentAssetIndex;mathint _futureAssetIndex;
+  // _currentAssetIndex,_futureAssetIndex= getAssetIndex(e,AToken,reward);
   
-//   f(e,args);
+  f(e,args);
 
-//   mathint after_acc=getUserAccured(e,AToken,reward,user);
-//   mathint after_pending=getPendingRewards(e,user,reward,AToken,AToken.balanceOf(e,user),AToken.scaledTotalSupply(e));
+  mathint after_acc=getUserAccured(e,AToken,reward,user);
+  mathint after_pending=getPendingRewards(e,user,reward,AToken,AToken.balanceOf(e,user),AToken.scaledTotalSupply(e));
 
-//   mathint userIndex_=getUserAssetIndex(e,user,AToken,reward);
-//   mathint currentAssetIndex_;mathint futureAssetIndex_;
-//   currentAssetIndex_,futureAssetIndex_= getAssetIndex(e,AToken,reward);
+  // mathint userIndex_=getUserAssetIndex(e,user,AToken,reward);
+  // mathint currentAssetIndex_;mathint futureAssetIndex_;
+  // currentAssetIndex_,futureAssetIndex_= getAssetIndex(e,AToken,reward);
 
-//   assert before_acc!=after_acc => after_pending==0;
-//   assert before_pending!=after_pending => after_pending==0;
-//   assert before_acc!=after_acc || before_pending!=after_pending => userIndex_== _futureAssetIndex && currentAssetIndex_==_futureAssetIndex && _futureAssetIndex==futureAssetIndex_;
-// }
-// rule prop17_break(method f,env e,calldataarg args)filtered{f->!f.isView && excludeOnlyEmission(f) && excludeHandleAction(f) && excludeConfigureAsset(f)}{
-  
-//   // address[] assets;address user;
-//   // require(assets.length==1 &&assets[0]==AToken); 
-//   address user;
-
-//     require(getAvailableRewardsCount(e,AToken)>=1 && getAssetRewardByIndex(e,AToken,0)==reward && getAssetDecimals(e,AToken)==6);
-
-//   mathint before_acc=getUserAccured(e,AToken,reward,user);
-//   mathint before_pending=getPendingRewards(e,user,reward,AToken,AToken.balanceOf(e,user),AToken.scaledTotalSupply(e));
-
-//   mathint _userIndex=getUserAssetIndex(e,user,AToken,reward);
-//   mathint _currentAssetIndex;mathint _futureAssetIndex;
-//   _currentAssetIndex,_futureAssetIndex= getAssetIndex(e,AToken,reward);
-  
-//   f(e,args);
-
-//   mathint after_acc=getUserAccured(e,AToken,reward,user);
-//   mathint after_pending=getPendingRewards(e,user,reward,AToken,AToken.balanceOf(e,user),AToken.scaledTotalSupply(e));
-
-//   mathint userIndex_=getUserAssetIndex(e,user,AToken,reward);
-//   mathint currentAssetIndex_;mathint futureAssetIndex_;
-//   currentAssetIndex_,futureAssetIndex_= getAssetIndex(e,AToken,reward);
-
-//   assert before_acc!=after_acc => after_pending==0;
-//   // assert before_pending!=after_pending => after_pending==0;
-//   // assert before_acc!=after_acc || before_pending!=after_pending => userIndex_== _futureAssetIndex && currentAssetIndex_==_futureAssetIndex && _futureAssetIndex==futureAssetIndex_;
-// }
-
+  assert before_acc!=after_acc => after_pending==0;
+  assert before_pending!=after_pending => after_pending==0;
+  // assert before_acc!=after_acc || before_pending!=after_pending => userIndex_== _futureAssetIndex && currentAssetIndex_==_futureAssetIndex && _futureAssetIndex==futureAssetIndex_;
+}
 // passed:- in claimRewards passing assets array with unique and one AToken result same as assets array with 2 same AToken
 // https://prover.certora.com/output/93750/e5aaac226a1d4781b5939642254dc458/?anonymousKey=0b8e36a72860469278f725eb20f9fdc1bbff4ea8
 rule prop19{
