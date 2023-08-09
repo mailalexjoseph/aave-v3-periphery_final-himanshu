@@ -232,7 +232,7 @@ rule prop16(method f) filtered{f->!f.isView && f.selector!= sig:configureAssetsH
 }
 
 
-// emission,distributionEnd,totalSupply of a rewardData can only be changed by emissionManager
+// emission,distributionEnd and totalSupply of a rewardData can only be changed by emissionManager
 // https://prover.certora.com/output/93750/64486ffd3e9344e1ba058170a98bd874/?anonymousKey=8de6cb59b8933d2ad7494c88c5bbc15898af9e65
 rule onlyEmissionManager(method f) filtered{f->!f.isView && f.selector!=sig:configureAssetsHelper(RewardsDataTypes.RewardsConfigInput[]).selector}{
   env e;calldataarg args;
