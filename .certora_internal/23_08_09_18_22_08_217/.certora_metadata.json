@@ -1,0 +1,35 @@
+{
+    "CLI_version": "4.5.1",
+    "branch": "certora",
+    "conf": {
+        "commit_sha1": "abb145536dc82c0da26e34b18b2dd9ee041720dc",
+        "files": [
+            "certora/harness/RewardsControllerHarness.sol:RewardsControllerHarness",
+            "certora/harness/rewards/TransferStrategyHarness.sol",
+            "certora/harness/tokens/DummyERC20_AToken.sol",
+            "certora/harness/tokens/DummyERC20_rewardToken.sol",
+            "contracts/rewards/libraries/RewardsDataTypes.sol"
+        ],
+        "link": [
+            "TransferStrategyHarness:REWARD=DummyERC20_rewardToken"
+        ],
+        "loop_iter": "2",
+        "optimistic_loop": true,
+        "process": "emv",
+        "prover_args": [
+            "-depth 20"
+        ],
+        "rule_sanity": "basic",
+        "smt_timeout": "500",
+        "verify": "RewardsControllerHarness:certora/specs/RewardsController_verified.spec"
+    },
+    "cwd_relative": ".",
+    "dirty": true,
+    "origin": "https://github.com/himanshu-Bhatt/aave-v3-periphery_final.git",
+    "raw_args": [
+        "/home/himanshu/.local/bin/certoraRun",
+        "certora/conf/verifyRewardsController_verified.conf"
+    ],
+    "revision": "f45ec26ab2ac41bb699224bb23312bbf2fdea7ed",
+    "timestamp": "1691565729.006213"
+}
