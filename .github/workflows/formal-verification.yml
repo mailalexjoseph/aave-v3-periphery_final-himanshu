@@ -24,7 +24,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - id: set-matrix
-        run: echo ::set-output name=matrix::$(ls certora/tests/certora/*.patch | jq -Rsc 'split("\n")[:-1]')
+        run: echo ::set-output name=matrix::$(ls certora/tests/certoraFactored/*.patch | jq -Rsc 'split("\n")[:-1]')
 
   verify:
     runs-on: ubuntu-latest
@@ -75,4 +75,25 @@ jobs:
       max-parallel: 16
       matrix:
         patch: ${{ fromJson(needs.list-patches.outputs.matrix) }} 
-        rule: ${{ fromJson(needs.list-confs.outputs.matrix) }} 
+        rule: 
+            - certora/conf/verifyRewardsController_verified.conf --rule prop25
+            - certora/conf/verifyRewardsController_verified.conf --rule prop24
+            - certora/conf/verifyRewardsController_verified.conf --rule monotonicityOverTime_simpleStart
+            - certora/conf/verifyRewardsController_verified.conf --rule prop28
+            - certora/conf/verifyRewardsController_verified.conf --rule prop22
+            - certora/conf/verifyRewardsController_verified.conf --rule prop21
+            - certora/conf/verifyRewardsController_verified.conf --rule claimRewardsOnBehalf_unit claimRewards_unit prop19 prop19_claimAll claimRewardsToSelf_unit prop16_availaleRewards_of_asset_must_be_unique lastupdatedtimestamp_keeps_growing setClaimer 
+            - certora/conf/verifyRewardsController_verified.conf --rule getPendingRewardRestriction emission_and_distributionEnd prop17_break prop26 prop16 indexCorrectness prop20 onlyEmissionManager prop16_assetList user_index_keeps_growing 
+            - certora/conf/default.conf --rule prop25
+            - certora/conf/default.conf --rule prop24
+            - certora/conf/default.conf --rule monotonicityOverTime_simpleStart
+            - certora/conf/default.conf --rule prop28
+            - certora/conf/default.conf --rule prop22
+            - certora/conf/default.conf --rule prop21
+            - certora/conf/default.conf --rule claimRewardsOnBehalf_unit claimRewards_unit prop19 prop19_claimAll claimRewardsToSelf_unit prop16_availaleRewards_of_asset_must_be_unique lastupdatedtimestamp_keeps_growing setClaimer 
+            - certora/conf/default.conf --rule getPendingRewardRestriction emission_and_distributionEnd prop17_break prop26 prop16 indexCorrectness prop20 onlyEmissionManager prop16_assetList user_index_keeps_growing 
+
+
+
+
+            
