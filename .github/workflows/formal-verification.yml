@@ -76,11 +76,5 @@ jobs:
       matrix:
         patch: ${{ fromJson(needs.list-patches.outputs.matrix) }} 
         rule: 
-            - certora/conf/verifyRewardsController_multiReward_verified.conf --rule handleAction
-            - certora/conf/verifyRewardsController_multiReward_verified.conf --rule indexCannotExceed
-            - certora/conf/verifyRewardsController_multiReward_verified.conf --rule user_index_keeps_growing
-            - certora/conf/verifyRewardsController_multiReward_verified.conf --rule claimAllRewards
-            - certora/conf/verifyRewardsController_multiReward_verified.conf --rule claimAllRewardsOnBehalf
-            - certora/conf/verifyRewardsController_multiReward_verified.conf --rule claimAllRewardsToSelf
-            - certora/conf/verifyRewardsController_multiReward_verified.conf --rule bug2_zero_address
-        
+            - certora/conf/verifyRewardsController_verified.conf --rule prop19_claimAll
+            - certora/conf/default.conf --rule prop19_claimAll
