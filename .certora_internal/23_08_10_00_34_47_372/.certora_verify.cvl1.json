@@ -1,0 +1,20 @@
+[
+    {
+        "importFilesToOrigRelpaths": {
+            ".certora_internal/23_08_10_00_34_47_372/.certora_sources/.0_ERC20_methods.spec.spec": "certora/specs/methods/ERC20_methods.spec",
+            ".certora_internal/23_08_10_00_34_47_372/.certora_sources/.0_Methods_base.spec.spec": "certora/specs/methods/Methods_base.spec"
+        },
+        "primary_contract": "RewardsControllerHarness",
+        "specfile": ".certora_internal/23_08_10_00_34_47_372/.certora_sources/.0_RewardsController_multiReward_verified.spec.spec",
+        "specfileOrigRelpath": "certora/specs/RewardsController_multiReward_verified.spec",
+        "specfilesToImportDecls": {
+            ".certora_internal/23_08_10_00_34_47_372/.certora_sources/.0_Methods_base.spec.spec": [
+                "./ERC20_methods.spec"
+            ],
+            ".certora_internal/23_08_10_00_34_47_372/.certora_sources/.0_RewardsController_multiReward_verified.spec.spec": [
+                "methods/Methods_base.spec"
+            ]
+        },
+        "type": "spec"
+    }
+]
